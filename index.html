@@ -1,35 +1,36 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Каталог игр</title>
+    <title>Таблица игр</title>
+    <style>
+        /* Простые стили для таблицы */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
-    <h2>Каталог игр</h2>
-    <table border="1" cellpadding="5" cellspacing="1" width="100%">
-        <tr>
-            <th>Жанр</th> 
-            <th>Название</th>
-            <th>Рейтинг</th>
-            <th>Цена</th>
-        </tr>
-        <?php
-            // Подключение к базе данных и выполнение запроса
-            $pdo = new PDO("mysql:host=localhost;dbname=название_базы_данных", "пользователь", "пароль");
-            $sql = "SELECT * FROM games";
-            $sta = $pdo->query($sql);
 
-            // Цикл для вывода данных в таблицу
-            while ($row = $sta->fetch(PDO::FETCH_ASSOC)) {
-                echo "<tr>";
-                echo "<td align=\"center\">" . $row["genre"] . "</td>";
-                echo "<td align=\"center\">" . $row["title"] . "</td>";
-                echo "<td align=\"center\">" . $row["rating"] . "</td>";
-                echo "<td align=\"center\">" . $row["price"] . "</td>";
-                echo "</tr>";
-            }
+<?php
+    include 'display_games.php'; // Подключаем файл с массивом игр
+    include 'create_games_table.php'; // Подключаем функцию создания таблицы
 
-            // Закрытие соединения с базой данных
-            $pdo = null;
-        ?>
-    </table>
+    // Создаем таблицу с играми
+    $gamesTable = createGamesTable($games);
+?>
+
+<div>
+    <?php echo $gamesTable; ?> <!-- Выводим таблицу игр -->
+</div>
+
 </body>
 </html>

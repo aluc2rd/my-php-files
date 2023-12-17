@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Таблица игр</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>Название игры</th>
+            <th>Жанр</th>
+            <th>Год выпуска</th>
+        </tr>
+        <?php
+        include 'display_games.php';
+        include 'create_games_table.php';
+        $gamesTable = createGamesTable($games);
+        echo $gamesTable;
+        ?>
+    </table>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Таблица игр</title>
+    <style>
+        /* Стили для таблицы */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<div id="gamesTable">
+    <!-- Здесь будет отображаться таблица игр -->
+</div>
+
+<script>
+    // Функция для загрузки данных из PHP-файла
+    function loadGames() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("gamesTable").innerHTML = this.responseText;
+            }
+        };
+        xhttp.open("GET", "display_games.php", true);
+        xhttp.send();
+    }
+
+    // Загружаем данные при загрузке страницы
+    window.onload = loadGames;
+</script>
+
+</body>
+</html>

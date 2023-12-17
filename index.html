@@ -1,20 +1,34 @@
-<!DOCTYPE html>
 <html>
 <head>
-    <title>Таблица игр</title>
+    <title>Каталог игр</title>
 </head>
 <body>
-    <table>
+    <h2>Каталог игр</h2>
+    <table border="1" cellpadding="5" cellspacing="1" width="100%">
         <tr>
-            <th>Название игры</th>
-            <th>Жанр</th>
-            <th>Год выпуска</th>
+            <th>Жанр</th> 
+            <th>Название</th>
+            <th>Рейтинг</th>
+            <th>Цена</th>
         </tr>
         <?php
-        include 'display_games.php';
-        include 'create_games_table.php';
-        $gamesTable = createGamesTable($games);
-        echo $gamesTable;
+            // Подключение к базе данных и выполнение запроса
+            $pdo = new PDO("mysql:host=localhost;dbname=название_базы_данных", "пользователь", "пароль");
+            $sql = "SELECT * FROM games";
+            $sta = $pdo->query($sql);
+
+            // Цикл для вывода данных в таблицу
+            while ($row = $sta->fetch(PDO::FETCH_ASSOC)) {
+                echo "<tr>";
+                echo "<td align=\"center\">" . $row["genre"] . "</td>";
+                echo "<td align=\"center\">" . $row["title"] . "</td>";
+                echo "<td align=\"center\">" . $row["rating"] . "</td>";
+                echo "<td align=\"center\">" . $row["price"] . "</td>";
+                echo "</tr>";
+            }
+
+            // Закрытие соединения с базой данных
+            $pdo = null;
         ?>
     </table>
 </body>
